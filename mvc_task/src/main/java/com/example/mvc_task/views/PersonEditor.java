@@ -30,9 +30,9 @@ public class PersonEditor extends VerticalLayout implements PropertyChangeListen
     private Person person;
     
     public PersonEditor(Person person) {
-    	// setPerson(person);
-    	this.person = person;
-    	person.addPropertyChangeListener(this);
+    	setPerson(person);
+//    	this.person = person;
+//    	person.addPropertyChangeListener(this);
 		initUI();
 	}
     
@@ -68,11 +68,12 @@ public class PersonEditor extends VerticalLayout implements PropertyChangeListen
     	addComponent(genderField);
 	}
     
-//    public void setPerson(Person person) {
-//    	this.person.removePropertyChangeListener(this);
-//    	this.person = person;
-//    	this.person.addPropertyChangeListener(this);
-//    }
+    public void setPerson(Person person) {
+    	if (this.person!= null)
+    		this.person.removePropertyChangeListener(this);
+    	this.person = person;
+    	this.person.addPropertyChangeListener(this);
+    }
     
     private void update(final TextField fieldName){
     	fieldName.addListener(new ValueChangeListener() {
