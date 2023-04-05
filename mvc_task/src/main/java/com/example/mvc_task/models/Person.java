@@ -20,6 +20,10 @@ public class Person {
 	private PropertyChangeSupport pcs;
 	
 	public Person(){
+//		this.age = 0;
+//		this.gender = Gender.Male;
+//		this.id = 0;
+//		this.name = "";
 		pcs = new PropertyChangeSupport(this);
 	}
 	
@@ -27,7 +31,6 @@ public class Person {
 		return id;
 	}
 	public void setId(int id) {
-		System.out.println("Id updated!!");
 		int oldId = this.id;
 		this.id = id;
 		pcs.firePropertyChange("setId", oldId, id);

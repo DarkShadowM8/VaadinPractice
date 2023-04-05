@@ -29,12 +29,19 @@ public class PersonEditor extends VerticalLayout implements PropertyChangeListen
     
     private Person person;
     
+   
     public PersonEditor(Person person) {
     	setPerson(person);
-//    	this.person = person;
-//    	person.addPropertyChangeListener(this);
 		initUI();
 	}
+    
+    public void setPerson(Person person) {
+    	if (this.person!= null) {
+    		this.person.removePropertyChangeListener(this);
+    	}
+    	this.person = person;
+    	this.person.addPropertyChangeListener(this);
+    }
     
     private void initUI() {
 
@@ -68,17 +75,10 @@ public class PersonEditor extends VerticalLayout implements PropertyChangeListen
     	addComponent(genderField);
 	}
     
-    public void setPerson(Person person) {
-    	if (this.person!= null)
-    		this.person.removePropertyChangeListener(this);
-    	this.person = person;
-    	this.person.addPropertyChangeListener(this);
-    }
-    
+ 
     private void update(final TextField fieldName){
     	fieldName.addListener(new ValueChangeListener() {
             public void valueChange(ValueChangeEvent event) {
-            	System.out.println("Update Invoked!!!");
             	if(fieldName.getCaption().equals("ID"))
             		person.setId(Integer.parseInt(fieldName.getValue().toString()));
             	else if(fieldName.getCaption().equals("Name"))
@@ -97,9 +97,11 @@ public class PersonEditor extends VerticalLayout implements PropertyChangeListen
     	});
     }
     
-
+    public Person getPerson() {
+    	return person;
+    }
+    
 	public void propertyChange(PropertyChangeEvent evt) {
-		System.out.println("Property Change method Invoked!!");
 		// TODO Auto-generated method stub
 		if (evt.getPropertyName().equals("setId"))
 			idField.setValue(person.getId());
@@ -109,6 +111,10 @@ public class PersonEditor extends VerticalLayout implements PropertyChangeListen
 			ageField.setValue(person.getAge());
 		else if (evt.getPropertyName().equals("setGender"))
 			genderField.setValue(person.getGender());
+		if (evt.getPropertyName().equals("ChildernAdded")) {
+			System.out.println("this");
+			
+		}
 	}
 }
 
